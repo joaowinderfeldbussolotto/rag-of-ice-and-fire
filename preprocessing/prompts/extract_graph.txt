@@ -1,0 +1,682 @@
+
+-Goal-
+Given a text document that is potentially relevant to this activity and a list of entity types, identify all entities of those types from the text and all relationships among the identified entities.
+
+-Steps-
+1. Identify all entities. For each identified entity, extract the following information:
+- entity_name: Name of the entity, capitalized
+- entity_type: One of the following types: [character, location, house, event, object, title, organization, concept, battle, region, structure, religion, creature, artifact, position, group, action, relationship, conflict, culture, tradition, mythical being, historical event, geographical feature, political entity, military unit, social structure, ideology, alliance, betrayal, ceremony, custom, disease, duty, ethnicity, faction, festivity, feud, governing body, heritage, honor, identity, institution, justice, kinship, law, legacy, lineage, loyalty, marriage, oath, prophecy, rank, rebellion, reputation, rite, ritual, rule, sacrifice, secret, social norm, status, strategy, succession, symbol, tactic, treaty, trial, truce, trust, vendetta, vow, war, weapon, worship]
+- entity_description: Comprehensive description of the entity's attributes and activities
+Format each entity as ("entity"{tuple_delimiter}<entity_name>{tuple_delimiter}<entity_type>{tuple_delimiter}<entity_description>)
+
+2. From the entities identified in step 1, identify all pairs of (source_entity, target_entity) that are *clearly related* to each other.
+For each pair of related entities, extract the following information:
+- source_entity: name of the source entity, as identified in step 1
+- target_entity: name of the target entity, as identified in step 1
+- relationship_description: explanation as to why you think the source entity and the target entity are related to each other
+- relationship_strength: an integer score between 1 to 10, indicating strength of the relationship between the source entity and target entity
+Format each relationship as ("relationship"{tuple_delimiter}<source_entity>{tuple_delimiter}<target_entity>{tuple_delimiter}<relationship_description>{tuple_delimiter}<relationship_strength>)
+
+3. Return output in English as a single list of all the entities and relationships identified in steps 1 and 2. Use **{record_delimiter}** as the list delimiter.
+
+4. If you have to translate into English, just translate the descriptions, nothing else!
+
+5. When finished, output {completion_delimiter}.
+
+-Examples-
+######################
+
+Example 1:
+
+entity_types: [character, location, house, event, object, title, organization, concept, battle, region, structure, religion, creature, artifact, position, group, action, relationship, conflict, culture, tradition, mythical being, historical event, geographical feature, political entity, military unit, social structure, ideology, alliance, betrayal, ceremony, custom, disease, duty, ethnicity, faction, festivity, feud, governing body, heritage, honor, identity, institution, justice, kinship, law, legacy, lineage, loyalty, marriage, oath, prophecy, rank, rebellion, reputation, rite, ritual, rule, sacrifice, secret, social norm, status, strategy, succession, symbol, tactic, treaty, trial, truce, trust, vendetta, vow, war, weapon, worship]
+text:
+Tommen
+ seems to have a cold and the
+current 
+High Septon
+ was appointed by 
+Tyrion
+. She wonders if she should have him removed. Tommen and Cersei
+both notice the stench that is emanating from her father's corpse.
+After the service, the procession of mourners come to offer condolences to Cersei. First is 
+Falyse Stokeworth
+, who
+mentions that 
+her sister
+ is ready to give birth and the family would like to name the child Tywin. Cersei is offended
+and brusquely forbids her. Next is 
+Lancel
+ who is still looking half dead. As he begins to mention his love and then
+his new-found faith, Cersei heads him off by saying, "Atonement is best achieved through prayer. Silent prayer."
+The only mourner to please Cersei is 
+Taena Merryweather
+, who promises that all her friends in the 
+Free Cities
+ have
+been notified to watch for and seize Tyrion.
+When 
+Mace Tyrell
+ comes before her, he mentions that his uncle 
+Garth
+ is on the way to assume the duties of 
+Master
+of Coin
+. The Queen Regent, not wishing to see another Tyrell on the small council, immediately backpedals that
+Gyles Rosby
+ has already accepted the post. This upsets Tyrell and 
+his mother
+, as Tywin had wanted Garth to assume
+the position. The Queen of Thorns then brings up the terrible smell in the sept, and Cersei wants nothing more than
+to get rid of the clever old woman. But Lady Olenna states she will not depart until 
+Margaery
+ is wed to Tommen.
+Leaving the Sept, Cersei rides back to the 
+Red Keep
+ with 
+Gyles Rosby
+, asking him belatedly to be her new master of
+coin, which he accepts.
+Back in her rooms, 
+Qyburn
+ pays her a visit, revealing that he discovered in the undergaoler's sleeping cell a gold
+coin that dated back to the 
+Gardener
+ Kings of the Reach. Once again, Cersei is suspicious that the 
+Tyrells
+ had a hand
+in Tyrion's escape and Tywin's murder. Qyburn then asks if he may experiment on the dying 
+Gregor Clegane
+ in the
+black cells
+, since he is more adept at the nature of death than any of the 
+archmaesters
+ from the 
+Citadel
+. She agrees
+with his request, but tells him to bring her Gregor's head when he dies, as her father had promised it to 
+Dorne
+.
+Finally, 
+Kevan
+ meets with her for dinner, as she had requested.
+Cersei asks him to be Tommen's 
+Hand
+. Kevan first admonishes her for making Mace Tyrell look a fool in front of
+half the court. He then informs her that he would rather help his son Lancel take control of Castle 
+Darry
+. He offers
+to take up the position as Hand, provided Cersei removes herself from 
+King's Landing
+ and returns to 
+Casterly Rock
+.
+Cersei is infuriated and a fierce argument takes place during which she threatens Kevan. Unfazed, Kevan counsels
+her to name 
+Randyll Tarly
+ or 
+Mathis Rowan
+ as Tommen's Hand. As both men are Tyrell vassals, this makes Cersei
+even more angry and she accuses him of abandoning Tommen. As he departs, Kevan reveals that he knows who
+Tommen's father really is.
+Navigation:
+Cersei I
+↑
+Arya I
+ ←
+Cersei II
+→ 
+Jaime I
+↓
+
+Cersei III
+
+A Feast for Crows - Chapter 8: Jaime I
+Place(s): 
+King's Landing
+ 
+ 
+Navigation:
+Jaime IX
+A Storm of Swords
+↑
+Cersei II
+ ←
+Jaime I
+→ 
+Brienne II
+↓
+Jaime II
+Synopsis
+Standing a planned seven day vigil over 
+his father
+'s funeral bier, 
+Jaime
+ finds himself with a lot of time for thinking.
+He feels that he is as much to blame for his father's death as 
+Tyrion
+ or 
+Varys
+. He also finds himself wondering what
+happened to the eunuch. His thoughts then turn to the day that Prince 
+Rhaegar
+ rode for the 
+Trident
+. Jaime had
+begged not to be left behind to guard the king, but Rhaegar told him that 
+Aerys
+ feared Lord Tywin more than he did
+Robert
+, and meant to keep Jaime at his side as insurance. Mounting up, Rhaegar's last words to Jaime were, "When
+this battle's done I mean to call a council. Changes will be made. I meant to do it long ago, but...well, it does no
+good to speak of roads not taken." Finally, Jaime recalls his recent questioning of the 
+chief undergaoler
+, which was a
+complete farce as Jaime knew far more than the man did, since he was the perpetrator.
+When Jaime learned that the two gaolers who were put to sleep were killed by 
+Boros Blount
+ and 
+Osmund
+Kettleblack
+, he reprimanded them, warning them never to act on 
+his sister
+'s orders to kill anyone without consulting
+him first. Some time in the middle of the night, Cersei visits him with news of 
+Kevan
+'s refusal to become her
+------------------------
+output:
+("entity"{tuple_delimiter}TOMMEN{tuple_delimiter}character{tuple_delimiter}Tommen is a character who seems to have a cold and is the son of Cersei)
+{record_delimiter}
+("entity"{tuple_delimiter}HIGH SEPTON{tuple_delimiter}title{tuple_delimiter}The High Septon is a religious leader appointed by Tyrion)
+{record_delimiter}
+("entity"{tuple_delimiter}TYRION{tuple_delimiter}character{tuple_delimiter}Tyrion is a character who appointed the High Septon and is suspected of murdering Tywin)
+{record_delimiter}
+("entity"{tuple_delimiter}CERSEI{tuple_delimiter}character{tuple_delimiter}Cersei is a character who is considering removing the High Septon and is the mother of Tommen)
+{record_delimiter}
+("entity"{tuple_delimiter}FALYSE STOKEWORTH{tuple_delimiter}character{tuple_delimiter}Falyse Stokeworth is a mourner who wants to name her child Tywin)
+{record_delimiter}
+("entity"{tuple_delimiter}LANCEL{tuple_delimiter}character{tuple_delimiter}Lancel is a mourner who is still looking half dead and has a new-found faith)
+{record_delimiter}
+("entity"{tuple_delimiter}TAENA MERRYWEATHER{tuple_delimiter}character{tuple_delimiter}Taena Merryweather is a mourner who promises to help find Tyrion)
+{record_delimiter}
+("entity"{tuple_delimiter}FREE CITIES{tuple_delimiter}region{tuple_delimiter}The Free Cities are a group of city-states where Taena Merryweather has friends)
+{record_delimiter}
+("entity"{tuple_delimiter}MACE TYRELL{tuple_delimiter}character{tuple_delimiter}Mace Tyrell is a character who mentions his uncle Garth is on the way to assume the duties of Master of Coin)
+{record_delimiter}
+("entity"{tuple_delimiter}GARTH{tuple_delimiter}character{tuple_delimiter}Garth is a character who is the uncle of Mace Tyrell and was intended to be the Master of Coin)
+{record_delimiter}
+("entity"{tuple_delimiter}MASTER OF COIN{tuple_delimiter}position{tuple_delimiter}Master of Coin is a position on the small council responsible for financial matters)
+{record_delimiter}
+("entity"{tuple_delimiter}GYLES ROSBY{tuple_delimiter}character{tuple_delimiter}Gyles Rosby is a character who is appointed as the new Master of Coin)
+{record_delimiter}
+("entity"{tuple_delimiter}QUEEN OF THORNS{tuple_delimiter}title{tuple_delimiter}The Queen of Thorns is a title referring to Lady Olenna Tyrell)
+{record_delimiter}
+("entity"{tuple_delimiter}OLENNA TYRELL{tuple_delimiter}character{tuple_delimiter}Olenna Tyrell, also known as the Queen of Thorns, is a character who is the mother of Mace Tyrell)
+{record_delimiter}
+("entity"{tuple_delimiter}MARGAERY TYRELL{tuple_delimiter}character{tuple_delimiter}Margaery Tyrell is a character who is to be wed to Tommen)
+{record_delimiter}
+("entity"{tuple_delimiter}RED KEEP{tuple_delimiter}structure{tuple_delimiter}The Red Keep is a castle where Cersei rides back to after the funeral)
+{record_delimiter}
+("entity"{tuple_delimiter}QYBURN{tuple_delimiter}character{tuple_delimiter}Qyburn is a character who visits Cersei and reveals information about a gold coin)
+{record_delimiter}
+("entity"{tuple_delimiter}GARDENER KINGS{tuple_delimiter}lineage{tuple_delimiter}The Gardener Kings are a historical lineage from the Reach)
+{record_delimiter}
+("entity"{tuple_delimiter}TYRELLS{tuple_delimiter}house{tuple_delimiter}The Tyrells are a house suspected of involvement in Tyrion's escape and Tywin's murder)
+{record_delimiter}
+("entity"{tuple_delimiter}GREGOR CLEGANE{tuple_delimiter}character{tuple_delimiter}Gregor Clegane is a character who is dying and to be experimented on by Qyburn)
+{record_delimiter}
+("entity"{tuple_delimiter}BLACK CELLS{tuple_delimiter}location{tuple_delimiter}The Black Cells are a location in the Red Keep where Gregor Clegane is held)
+{record_delimiter}
+("entity"{tuple_delimiter}ARCHMAESTERS{tuple_delimiter}title{tuple_delimiter}Archmaesters are scholars from the Citadel)
+{record_delimiter}
+("entity"{tuple_delimiter}CITADEL{tuple_delimiter}institution{tuple_delimiter}The Citadel is an institution where archmaesters are trained)
+{record_delimiter}
+("entity"{tuple_delimiter}DORNE{tuple_delimiter}region{tuple_delimiter}Dorne is a region where Tywin promised to send Gregor's head)
+{record_delimiter}
+("entity"{tuple_delimiter}KEVAN{tuple_delimiter}character{tuple_delimiter}Kevan is a character who meets with Cersei for dinner and refuses to be Tommen's Hand)
+{record_delimiter}
+("entity"{tuple_delimiter}HAND{tuple_delimiter}position{tuple_delimiter}The Hand is a position of power serving the king)
+{record_delimiter}
+("entity"{tuple_delimiter}CASTERLY ROCK{tuple_delimiter}structure{tuple_delimiter}Casterly Rock is the ancestral castle of House Lannister)
+{record_delimiter}
+("entity"{tuple_delimiter}KING'S LANDING{tuple_delimiter}location{tuple_delimiter}King's Landing is the capital city where the Red Keep is located)
+{record_delimiter}
+("entity"{tuple_delimiter}RANDYLL TARLY{tuple_delimiter}character{tuple_delimiter}Randyll Tarly is a character suggested as a potential Hand for Tommen)
+{record_delimiter}
+("entity"{tuple_delimiter}MATHIS ROWAN{tuple_delimiter}character{tuple_delimiter}Mathis Rowan is a character suggested as a potential Hand for Tommen)
+{record_delimiter}
+("entity"{tuple_delimiter}JAIME{tuple_delimiter}character{tuple_delimiter}Jaime is a character who stands vigil over his father's funeral bier and reflects on past events)
+{record_delimiter}
+("entity"{tuple_delimiter}RHAEGAR{tuple_delimiter}character{tuple_delimiter}Rhaegar is a character who rode for the Trident and is the son of Aerys)
+{record_delimiter}
+("entity"{tuple_delimiter}TRIDENT{tuple_delimiter}geographical feature{tuple_delimiter}The Trident is a river where a significant battle took place)
+{record_delimiter}
+("entity"{tuple_delimiter}AERYS{tuple_delimiter}character{tuple_delimiter}Aerys is a character who was the king and father of Rhaegar)
+{record_delimiter}
+("entity"{tuple_delimiter}ROBERT{tuple_delimiter}character{tuple_delimiter}Robert is a character who was a rebel leader during Robert's Rebellion)
+{record_delimiter}
+("entity"{tuple_delimiter}CHIEF UNDERGAOLER{tuple_delimiter}position{tuple_delimiter}The Chief Undergaoler is a position responsible for the dungeons)
+{record_delimiter}
+("entity"{tuple_delimiter}BOROS BLOUNT{tuple_delimiter}character{tuple_delimiter}Boros Blount is a character who killed two gaolers on Cersei's orders)
+{record_delimiter}
+("entity"{tuple_delimiter}OSMUND KETTLEBLACK{tuple_delimiter}character{tuple_delimiter}Osmund Kettleblack is a character who killed two gaolers on Cersei's orders)
+{record_delimiter}
+("entity"{tuple_delimiter}VARYS{tuple_delimiter}character{tuple_delimiter}Varys is a character who is suspected of involvement in Tywin's murder)
+{record_delimiter}
+("entity"{tuple_delimiter}CASTLE DARRY{tuple_delimiter}structure{tuple_delimiter}Castle Darry is a castle that Kevan wants to take control of for his son Lancel)
+{record_delimiter}
+("relationship"{tuple_delimiter}TYRION{tuple_delimiter}HIGH SEPTON{tuple_delimiter}Tyrion appointed the High Septon{tuple_delimiter}9)
+{record_delimiter}
+("relationship"{tuple_delimiter}CERSEI{tuple_delimiter}HIGH SEPTON{tuple_delimiter}Cersei is considering removing the High Septon{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}TOMMEN{tuple_delimiter}CERSEI{tuple_delimiter}Tommen is the son of Cersei{tuple_delimiter}9)
+{record_delimiter}
+("relationship"{tuple_delimiter}FALYSE STOKEWORTH{tuple_delimiter}CERSEI{tuple_delimiter}Falyse Stokeworth wants to name her child Tywin, which offends Cersei{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}LANCEL{tuple_delimiter}CERSEI{tuple_delimiter}Lancel mentions his love and new-found faith to Cersei{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}TAENA MERRYWEATHER{tuple_delimiter}CERSEI{tuple_delimiter}Taena Merryweather promises to help find Tyrion, pleasing Cersei{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}MACE TYRELL{tuple_delimiter}GARTH{tuple_delimiter}Mace Tyrell mentions his uncle Garth is on the way to assume the duties of Master of Coin{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}CERSEI{tuple_delimiter}GYLES ROSBY{tuple_delimiter}Cersei appoints Gyles Rosby as the new Master of Coin{tuple_delimiter}9)
+{record_delimiter}
+("relationship"{tuple_delimiter}OLENNA TYRELL{tuple_delimiter}MACE TYRELL{tuple_delimiter}Olenna Tyrell is the mother of Mace Tyrell{tuple_delimiter}9)
+{record_delimiter}
+("relationship"{tuple_delimiter}CERSEI{tuple_delimiter}RED KEEP{tuple_delimiter}Cersei rides back to the Red Keep{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}QYBURN{tuple_delimiter}CERSEI{tuple_delimiter}Qyburn visits Cersei and reveals information about a gold coin{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}QYBURN{tuple_delimiter}GREGOR CLEGANE{tuple_delimiter}Qyburn experiments on the dying Gregor Clegane{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}CERSEI{tuple_delimiter}KEVAN{tuple_delimiter}Cersei meets with Kevan for dinner and asks him to be Tommen's Hand{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}KEVAN{tuple_delimiter}CASTERLY ROCK{tuple_delimiter}Kevan wants to take control of Castle Darry and suggests Cersei returns to Casterly Rock{tuple_delimiter}6)
+{record_delimiter}
+("relationship"{tuple_delimiter}JAIME{tuple_delimiter}RHAEGAR{tuple_delimiter}Jaime recalls his interactions with Rhaegar{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}JAIME{tuple_delimiter}AERYS{tuple_delimiter}Jaime recalls Aerys' fears and actions{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}JAIME{tuple_delimiter}ROBERT{tuple_delimiter}Jaime reflects on Robert's Rebellion{tuple_delimiter}6)
+{record_delimiter}
+("relationship"{tuple_delimiter}JAIME{tuple_delimiter}CHIEF UNDERGAOLER{tuple_delimiter}Jaime questions the Chief Undergaoler about the gaolers' deaths{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}BOROS BLOUNT{tuple_delimiter}CERSEI{tuple_delimiter}Boros Blount acted on Cersei's orders to kill the gaolers{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}OSMUND KETTLEBLACK{tuple_delimiter}CERSEI{tuple_delimiter}Osmund Kettleblack acted on Cersei's orders to kill the gaolers{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}JAIME{tuple_delimiter}VARYS{tuple_delimiter}Jaime suspects Varys of involvement in Tywin's murder{tuple_delimiter}6)
+{completion_delimiter}
+#############################
+
+
+Example 2:
+
+entity_types: [character, location, house, event, object, title, organization, concept, battle, region, structure, religion, creature, artifact, position, group, action, relationship, conflict, culture, tradition, mythical being, historical event, geographical feature, political entity, military unit, social structure, ideology, alliance, betrayal, ceremony, custom, disease, duty, ethnicity, faction, festivity, feud, governing body, heritage, honor, identity, institution, justice, kinship, law, legacy, lineage, loyalty, marriage, oath, prophecy, rank, rebellion, reputation, rite, ritual, rule, sacrifice, secret, social norm, status, strategy, succession, symbol, tactic, treaty, trial, truce, trust, vendetta, vow, war, weapon, worship]
+text:
+ their Young Falcon... and when they come together
+
+for his wedding, and you come out... clad in a maiden's cloak of white and grey with a direwolf emblazoned on the
+back... why, every knight in the 
+Vale
+ will pledge his sword to win you back your birthright. So those are your gifts
+from me, my sweet Sansa... Harry, the 
+Eyrie
+, and 
+Winterfell
+."
+Navigation:
+Alayne I
+↑
+The Princess in the Tower
+ ←
+Alayne II
+→ 
+Brienne VIII
+
+A Feast for Crows - Chapter 42: Brienne VIII
+Place(s): 
+the 
+Riverlands
+ 
+ 
+Navigation:
+Brienne VII
+↑
+Alayne II
+ ←
+Brienne VIII
+→ 
+Cersei X
+Synopsis
+Brienne
+ fluctuates between a fever dream and semi-consciousness, as the outlaws transport her severely injured
+body to Lady 
+Stoneheart
+. While she is being treated by 
+Jeyne Heddle
+, Brienne learns that 
+Biter
+ is dead, skewered
+through the head by a spear wielded by 
+Gendry
+. 
+Lem
+, now wearing 
+Sandor
+'s steel dog helm, tells her that Stoneheart
+wants her hanged for her "crimes". Brienne fully awakens in 
+a cave
+, where she meets 
+Thoros of Myr
+. The red priest
+is a ghost of his former self, and he informs her about the current state of the former 
+Brotherhood Without Banners
+:
+"Lord 
+Beric
+'s fire has gone out of this world... A grimmer shadow leads us in his place... War makes monsters of us
+all."
+Before long, Brienne is brought before Lady Stoneheart, where she as well as 
+Pod
+ and Ser 
+Hyle
+ will be judged.
+Brienne cannot see Stoneheart's face, but notices her holding a bronze crown ringed by iron swords. A northman,
+most likely 
+Harwin
+, places 
+Oathkeeper
+ before Stoneheart, along with Brienne's writ signed by King 
+Tommen
+. The
+outlaws see this as irrefutable proof that the Maid of Tarth is about 
+Lannister
+ business. Her words are wasted here,
+as her pleas of innocence fall on deaf ears. Finally, Lady Stoneheart speaks, needing to place her hand over her
+throat in order to gurgle out her judgment. Upon removing her hood, Brienne is horrified to discover that the
+Hangwoman is actually Lady Catelyn Stark, albeit now a specter from the grave. Thoros reveals that it was Lord
+Beric himself who administered the kiss of life to her, finally extinguishing his own unnatural life.
+Stoneheart gives Brienne an ultimatum: kill Ser 
+Jaime Lannister
+ or be hanged. When the Maid states that she will
+not make that choice, the thing that had been Catelyn Stark orders them hanged. Despite Ser Hyle's pleas for mercy,
+and Podrick's stoicism, nooses are looped about all three of their necks. As they are hefted upward, thrashing and
+dying, Brienne screams out a word...
+Navigation:
+Brienne VII
+↑
+Alayne II
+ ←
+Brienne VIII
+→ 
+Cersei X
+
+A Feast for Crows - Chapter 43: Cersei X
+Place(s): 
+King's Landing
+ 
+ 
+Navigation:
+Cersei IX
+↑
+Brienne VIII
+ ←
+Cersei X
+→ 
+Jaime VII
+↓
+A Dance with Dragons
+Cersei I
+Synopsis
+Accompanied by six newly reinstated 
+Warrior's Sons
+, Septa 
+Moelle
+ brings word to the court that Queen 
+Margaery
+and her cousins have been imprisoned at the 
+Great Sept of Baelor
+ for adultery and high treason. The Septa reveals
+that Margaery's maidenhead is not intact. Grand Maester 
+Pycelle
+ also reluctantly discloses to the Septa that
+Margaery has had him mix 
+moon tea
+ on many occasions. Leaving the throne room confident that Margaery was
+finished, 
+Cersei
+ agrees with 
+Aurane Waters
+' request to launch his new dromonds, in case Lord 
+Mace Tyrell
+ decides
+to march on 
+King's Landing
+ to save his daughter. Lord 
+Orton Merryweather
+ remarks that the High Septon may want
+to try Margaery himself, as the Faith used to do. Cersei hopes he is right.
+Cersei has 
+Tommen
+ sign some blank warrants, which she then affixes names to. Summoning Ser 
+Osfryd
+, she orders
+him to arrest Ser 
+Tallad
+, the 
+Blue Bard
+, 
+Hugh Clifton
+, 
+Mark Mullendore
+, as well as the 
+Redwyne
+ twins whom she
+wants to be found innocent of the charges of bedding Margaery. The next morning, Cersei and 
+Taena
+ are carried by
+litter to the Great Sept. On the way, Lady Merryweather inquires, "What if Margaery demands that her innocence be
+determined by battle?" Cersei smiles, and replies that she must be championed by a knight of the 
+Kingsguard
+, but
+since Ser 
+Osmund
+ is brother to one of her accusers, that leaves only Ser 
+Meryn Trant
+ and Ser 
+Boros Blount
+. Cersei
+states that the former will not be feeling well when the time comes. Within
+------------------------
+output:
+("entity"{tuple_delimiter}YOUNG FALCON{tuple_delimiter}character{tuple_delimiter}A character mentioned in the context of a wedding and gifts)
+{record_delimiter}
+("entity"{tuple_delimiter}HARRY{tuple_delimiter}character{tuple_delimiter}A character mentioned as a gift in the context of the story)
+{record_delimiter}
+("entity"{tuple_delimiter}SANSA{tuple_delimiter}character{tuple_delimiter}A character referred to as 'my sweet Sansa' who receives gifts including Harry, the Eyrie, and Winterfell)
+{record_delimiter}
+("entity"{tuple_delimiter}VALE{tuple_delimiter}region{tuple_delimiter}A region where knights are mentioned to pledge their swords)
+{record_delimiter}
+("entity"{tuple_delimiter}EYRIE{tuple_delimiter}structure{tuple_delimiter}A structure mentioned as one of the gifts to Sansa)
+{record_delimiter}
+("entity"{tuple_delimiter}WINTERFELL{tuple_delimiter}structure{tuple_delimiter}A structure mentioned as one of the gifts to Sansa, associated with the Stark family)
+{record_delimiter}
+("entity"{tuple_delimiter}ALAYNE I{tuple_delimiter}chapter{tuple_delimiter}A chapter title in the book series)
+{record_delimiter}
+("entity"{tuple_delimiter}THE PRINCESS IN THE TOWER{tuple_delimiter}chapter{tuple_delimiter}A chapter title in the book series)
+{record_delimiter}
+("entity"{tuple_delimiter}ALAYNE II{tuple_delimiter}chapter{tuple_delimiter}A chapter title in the book series)
+{record_delimiter}
+("entity"{tuple_delimiter}BRIENNE VIII{tuple_delimiter}chapter{tuple_delimiter}A chapter title in the book series)
+{record_delimiter}
+("entity"{tuple_delimiter}RIVERLANDS{tuple_delimiter}region{tuple_delimiter}A region where events take place involving Brienne and outlaws)
+{record_delimiter}
+("entity"{tuple_delimiter}BRIENNE VII{tuple_delimiter}chapter{tuple_delimiter}A chapter title in the book series)
+{record_delimiter}
+("entity"{tuple_delimiter}CERSEI X{tuple_delimiter}chapter{tuple_delimiter}A chapter title in the book series)
+{record_delimiter}
+("entity"{tuple_delimiter}BRIENNE{tuple_delimiter}character{tuple_delimiter}A character who fluctuates between fever dreams and semi-consciousness, transported by outlaws)
+{record_delimiter}
+("entity"{tuple_delimiter}STONEHEART{tuple_delimiter}character{tuple_delimiter}A character, also known as Lady Stoneheart, who wants Brienne hanged for her crimes)
+{record_delimiter}
+("entity"{tuple_delimiter}JEYNE HEDDLE{tuple_delimiter}character{tuple_delimiter}A character who treats Brienne's injuries)
+{record_delimiter}
+("entity"{tuple_delimiter}BITER{tuple_delimiter}character{tuple_delimiter}A character who is dead, skewered through the head by Gendry)
+{record_delimiter}
+("entity"{tuple_delimiter}GENDRY{tuple_delimiter}character{tuple_delimiter}A character who skewered Biter through the head with a spear)
+{record_delimiter}
+("entity"{tuple_delimiter}LEM{tuple_delimiter}character{tuple_delimiter}A character wearing Sandor's steel dog helm, associated with Stoneheart)
+{record_delimiter}
+("entity"{tuple_delimiter}SANDOR{tuple_delimiter}character{tuple_delimiter}A character whose steel dog helm is worn by Lem)
+{record_delimiter}
+("entity"{tuple_delimiter}THOROS OF MYR{tuple_delimiter}character{tuple_delimiter}A red priest who informs Brienne about the Brotherhood Without Banners)
+{record_delimiter}
+("entity"{tuple_delimiter}BERIC{tuple_delimiter}character{tuple_delimiter}A character, also known as Lord Beric, whose fire has gone out of the world)
+{record_delimiter}
+("entity"{tuple_delimiter}CAVE{tuple_delimiter}location{tuple_delimiter}A location where Brienne fully awakens and meets Thoros of Myr)
+{record_delimiter}
+("entity"{tuple_delimiter}HARWIN{tuple_delimiter}character{tuple_delimiter}A northman likely associated with placing Oathkeeper before Stoneheart)
+{record_delimiter}
+("entity"{tuple_delimiter}OATHKEEPER{tuple_delimiter}object{tuple_delimiter}A sword placed before Stoneheart, associated with Brienne's writ)
+{record_delimiter}
+("entity"{tuple_delimiter}TOMEN{tuple_delimiter}character{tuple_delimiter}A character, King Tommen, who signed Brienne's writ)
+{record_delimiter}
+("entity"{tuple_delimiter}LANNISTER{tuple_delimiter}house{tuple_delimiter}A house associated with Brienne's business and the outlaws' accusations)
+{record_delimiter}
+("entity"{tuple_delimiter}CATELYN STARK{tuple_delimiter}character{tuple_delimiter}A character, also known as Lady Catelyn Stark, who is revealed to be the Hangwoman)
+{record_delimiter}
+("entity"{tuple_delimiter}JAIME LANNISTER{tuple_delimiter}character{tuple_delimiter}A character whom Stoneheart orders Brienne to kill)
+{record_delimiter}
+("entity"{tuple_delimiter}POD{tuple_delimiter}character{tuple_delimiter}A character, also known as Podrick, who is judged alongside Brienne and Ser Hyle)
+{record_delimiter}
+("entity"{tuple_delimiter}HYLE{tuple_delimiter}character{tuple_delimiter}A character, also known as Ser Hyle, who is judged alongside Brienne and Pod)
+{record_delimiter}
+("entity"{tuple_delimiter}KING'S LANDING{tuple_delimiter}location{tuple_delimiter}A location where events involving Cersei and the Warrior's Sons take place)
+{record_delimiter}
+("entity"{tuple_delimiter}WARRIOR'S SONS{tuple_delimiter}group{tuple_delimiter}A group of six newly reinstated members accompanying Septa Moelle)
+{record_delimiter}
+("entity"{tuple_delimiter}MOELLE{tuple_delimiter}character{tuple_delimiter}A character, also known as Septa Moelle, who brings word to the court about Margaery's imprisonment)
+{record_delimiter}
+("entity"{tuple_delimiter}MARGAERY{tuple_delimiter}character{tuple_delimiter}A character imprisoned at the Great Sept of Baelor for adultery and high treason)
+{record_delimiter}
+("entity"{tuple_delimiter}GREAT SEPT OF BAELOR{tuple_delimiter}structure{tuple_delimiter}A structure where Margaery and her cousins are imprisoned)
+{record_delimiter}
+("entity"{tuple_delimiter}PYCELLE{tuple_delimiter}character{tuple_delimiter}A character, also known as Grand Maester Pycelle, who discloses information about Margaery)
+{record_delimiter}
+("entity"{tuple_delimiter}MOON TEA{tuple_delimiter}object{tuple_delimiter}An object mixed by Pycelle for Margaery on many occasions)
+{record_delimiter}
+("entity"{tuple_delimiter}CERSEI{tuple_delimiter}character{tuple_delimiter}A character who agrees with Aurane Waters' request and has Tommen sign blank warrants)
+{record_delimiter}
+("entity"{tuple_delimiter}AURANE WATERS{tuple_delimiter}character{tuple_delimiter}A character who requests to launch new dromonds)
+{record_delimiter}
+("entity"{tuple_delimiter}MACE TYRELL{tuple_delimiter}character{tuple_delimiter}A character, also known as Lord Mace Tyrell, who might march on King's Landing to save his daughter)
+{record_delimiter}
+("entity"{tuple_delimiter}ORTON MERRYWEATHER{tuple_delimiter}character{tuple_delimiter}A character, also known as Lord Orton Merryweather, who remarks about the High Septon's potential actions)
+{record_delimiter}
+("entity"{tuple_delimiter}OSFRYD{tuple_delimiter}character{tuple_delimiter}A character, also known as Ser Osfryd, ordered by Cersei to arrest several individuals)
+{record_delimiter}
+("entity"{tuple_delimiter}TALLAD{tuple_delimiter}character{tuple_delimiter}A character, also known as Ser Tallad, ordered to be arrested by Cersei)
+{record_delimiter}
+("entity"{tuple_delimiter}BLUE BARD{tuple_delimiter}character{tuple_delimiter}A character ordered to be arrested by Cersei)
+{record_delimiter}
+("entity"{tuple_delimiter}HUGH CLIFTON{tuple_delimiter}character{tuple_delimiter}A character ordered to be arrested by Cersei)
+{record_delimiter}
+("entity"{tuple_delimiter}MARK MULLENDORE{tuple_delimiter}character{tuple_delimiter}A character ordered to be arrested by Cersei)
+{record_delimiter}
+("entity"{tuple_delimiter}REDWYNE{tuple_delimiter}house{tuple_delimiter}A house whose twins are ordered to be arrested by Cersei)
+{record_delimiter}
+("entity"{tuple_delimiter}TAENA{tuple_delimiter}character{tuple_delimiter}A character, also known as Lady Merryweather, who accompanies Cersei to the Great Sept)
+{record_delimiter}
+("entity"{tuple_delimiter}KINGSGUARD{tuple_delimiter}group{tuple_delimiter}A group of knights who might champion Margaery's innocence by battle)
+{record_delimiter}
+("entity"{tuple_delimiter}OSMUND{tuple_delimiter}character{tuple_delimiter}A character, also known as Ser Osmund, brother to one of Margaery's accusers)
+{record_delimiter}
+("entity"{tuple_delimiter}MERYN TRANT{tuple_delimiter}character{tuple_delimiter}A character, also known as Ser Meryn Trant, a potential champion for Margaery's innocence by battle)
+{record_delimiter}
+("entity"{tuple_delimiter}BOROS BLOUNT{tuple_delimiter}character{tuple_delimiter}A character, also known as Ser Boros Blount, a potential champion for Margaery's innocence by battle)
+{record_delimiter}
+("relationship"{tuple_delimiter}YOUNG FALCON{tuple_delimiter}HARRY{tuple_delimiter}Young Falcon and Harry are mentioned together in the context of a wedding and gifts{tuple_delimiter}2)
+{record_delimiter}
+("relationship"{tuple_delimiter}SANSA{tuple_delimiter}HARRY{tuple_delimiter}Sansa receives Harry as a gift{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}SANSA{tuple_delimiter}EYRIE{tuple_delimiter}Sansa receives the Eyrie as a gift{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}SANSA{tuple_delimiter}WINTERFELL{tuple_delimiter}Sansa receives Winterfell as a gift{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}ALAYNE I{tuple_delimiter}THE PRINCESS IN THE TOWER{tuple_delimiter}Alayne I and The Princess in the Tower are connected as chapter titles in the book series{tuple_delimiter}3)
+{record_delimiter}
+("relationship"{tuple_delimiter}ALAYNE II{tuple_delimiter}THE PRINCESS IN THE TOWER{tuple_delimiter}Alayne II and The Princess in the Tower are connected as chapter titles in the book series{tuple_delimiter}3)
+{record_delimiter}
+("relationship"{tuple_delimiter}BRIENNE VIII{tuple_delimiter}ALAYNE II{tuple_delimiter}Brienne VIII and Alayne II are connected as chapter titles in the book series{tuple_delimiter}3)
+{record_delimiter}
+("relationship"{tuple_delimiter}BRIENNE VIII{tuple_delimiter}BRIENNE VII{tuple_delimiter}Brienne VIII and Brienne VII are connected as chapter titles in the book series{tuple_delimiter}3)
+{record_delimiter}
+("relationship"{tuple_delimiter}BRIENNE VIII{tuple_delimiter}CERSEI X{tuple_delimiter}Brienne VIII and Cersei X are connected as chapter titles in the book series{tuple_delimiter}3)
+{record_delimiter}
+("relationship"{tuple_delimiter}BRIENNE{tuple_delimiter}STONEHEART{tuple_delimiter}Brienne is transported by outlaws to Stoneheart{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}BRIENNE{tuple_delimiter}JEYNE HEDDLE{tuple_delimiter}Jeyne Heddle treats Brienne's injuries{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}GENDRY{tuple_delimiter}BITER{tuple_delimiter}Gendry skewered Biter through the head with a spear{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}LEM{tuple_delimiter}SANDOR{tuple_delimiter}Lem wears Sandor's steel dog helm{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}THOROS OF MYR{tuple_delimiter}BERIC{tuple_delimiter}Thoros of Myr informs Brienne about Lord Beric's fire going out of the world{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}BRIENNE{tuple_delimiter}THOROS OF MYR{tuple_delimiter}Brienne meets Thoros of Myr in a cave{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}HARWIN{tuple_delimiter}OATHKEEPER{tuple_delimiter}Harwin places Oathkeeper before Stoneheart{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}TOMEN{tuple_delimiter}BRIENNE{tuple_delimiter}King Tommen signed Brienne's writ{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}STONEHEART{tuple_delimiter}CATELYN STARK{tuple_delimiter}Stoneheart is revealed to be Lady Catelyn Stark{tuple_delimiter}10)
+{record_delimiter}
+("relationship"{tuple_delimiter}STONEHEART{tuple_delimiter}JAIME LANNISTER{tuple_delimiter}Stoneheart orders Brienne to kill Jaime Lannister{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}BRIENNE{tuple_delimiter}POD{tuple_delimiter}Brienne is judged alongside Pod{tuple_delimiter}6)
+{record_delimiter}
+("relationship"{tuple_delimiter}BRIENNE{tuple_delimiter}HYLE{tuple_delimiter}Brienne is judged alongside Ser Hyle{tuple_delimiter}6)
+{record_delimiter}
+("relationship"{tuple_delimiter}MOELLE{tuple_delimiter}WARRIOR'S SONS{tuple_delimiter}Septa Moelle is accompanied by six newly reinstated Warrior's Sons{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}MOELLE{tuple_delimiter}MARGAERY{tuple_delimiter}Septa Moelle brings word to the court about Margaery's imprisonment{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}PYCELLE{tuple_delimiter}MOON TEA{tuple_delimiter}Grand Maester Pycelle mixed moon tea for Margaery on many occasions{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}CERSEI{tuple_delimiter}AURANE WATERS{tuple_delimiter}Cersei agrees with Aurane Waters' request to launch new dromonds{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}CERSEI{tuple_delimiter}MACE TYRELL{tuple_delimiter}Cersei prepares for potential actions by Lord Mace Tyrell{tuple_delimiter}4)
+{record_delimiter}
+("relationship"{tuple_delimiter}CERSEI{tuple_delimiter}OSFRYD{tuple_delimiter}Cersei orders Ser Osfryd to arrest several individuals{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}CERSEI{tuple_delimiter}TALLAD{tuple_delimiter}Cersei orders the arrest of Ser Tallad{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}CERSEI{tuple_delimiter}BLUE BARD{tuple_delimiter}Cersei orders the arrest of the Blue Bard{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}CERSEI{tuple_delimiter}HUGH CLIFTON{tuple_delimiter}Cersei orders the arrest of Hugh Clifton{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}CERSEI{tuple_delimiter}MARK MULLENDORE{tuple_delimiter}Cersei orders the arrest of Mark Mullendore{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}CERSEI{tuple_delimiter}REDWYNE{tuple_delimiter}Cersei orders the arrest of the Redwyne twins{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}CERSEI{tuple_delimiter}TAENA{tuple_delimiter}Cersei is accompanied by Taena to the Great Sept{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}MARGAERY{tuple_delimiter}KINGSGUARD{tuple_delimiter}Margaery's innocence might be determined by battle, championed by a knight of the Kingsguard{tuple_delimiter}4)
+{record_delimiter}
+("relationship"{tuple_delimiter}OSMUND{tuple_delimiter}MARGAERY{tuple_delimiter}Ser Osmund is brother to one of Margaery's accusers{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}MERYN TRANT{tuple_delimiter}KINGSGUARD{tuple_delimiter}Ser Meryn Trant is a member of the Kingsguard{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}BOROS BLOUNT{tuple_delimiter}KINGSGUARD{tuple_delimiter}Ser Boros Blount is a member of the Kingsguard{tuple_delimiter}7)
+{completion_delimiter}
+#############################
+
+
+
+-Real Data-
+######################
+entity_types: [character, location, house, event, object, title, organization, concept, battle, region, structure, religion, creature, artifact, position, group, action, relationship, conflict, culture, tradition, mythical being, historical event, geographical feature, political entity, military unit, social structure, ideology, alliance, betrayal, ceremony, custom, disease, duty, ethnicity, faction, festivity, feud, governing body, heritage, honor, identity, institution, justice, kinship, law, legacy, lineage, loyalty, marriage, oath, prophecy, rank, rebellion, reputation, rite, ritual, rule, sacrifice, secret, social norm, status, strategy, succession, symbol, tactic, treaty, trial, truce, trust, vendetta, vow, war, weapon, worship]
+text: {input_text}
+######################
+output:
