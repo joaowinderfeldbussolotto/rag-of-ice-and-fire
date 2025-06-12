@@ -19,7 +19,7 @@ except ImportError as e:
 class GraphRAGClient:
     """GraphRAG client using the official GraphRAG API"""
     
-    def __init__(self, project_directory: str = "../graphragtest/"):
+    def __init__(self, project_directory: str = "./graphragtest/"):
         self.project_directory = Path(project_directory)
         self.graphrag_config = None
         

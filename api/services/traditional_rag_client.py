@@ -21,38 +21,13 @@ except ImportError as e:
     logger.warning(f"Traditional RAG dependencies not available: {e}")
 
 import chromadb.utils.embedding_functions as embedding_functions
+
 mistral_embedding_function = embedding_functions.OpenAIEmbeddingFunction(
                 api_key=os.getenv("GRAPHRAG_API_KEY"),
                 api_base="https://api.mistral.ai/v1",
                 model_name="mistral-embed"
             )
 
-
-class MistralEmbeddingFunction(EmbeddingFunction):
-    
-    def __init__(self, api_key: str):
-        if not TRADITIONAL_RAG_AVAILABLE:
-            raise ImportError("Traditional RAG dependencies not available")
-        
-        self.embeddings = MistralAIEmbeddings(
-            model="mistral-embed",
-            api_key=api_key
-        )
-    
-    def __call__(self, input: Documents) -> Embeddings:
-        if isinstance(input, str):
-            texts = [input]
-        elif isinstance(input, list):
-            texts = input
-        else:
-            raise ValueError("Input must be a string or list of strings")
-        
-        if len(texts) == 1:
-            embedding = self.embeddings.embed_query(texts[0])
-            return [embedding]
-        else:
-            embeddings = self.embeddings.embed_documents(texts)
-            return embeddings
 
 class TraditionalRAGClient:
     
@@ -63,7 +38,6 @@ class TraditionalRAGClient:
         self.collection = None
         self.llm = None
         self.rag_chain = None
-        self.embedding_function = None
         self._setup_successful = False
         
         self.api_key = os.getenv('GRAPHRAG_API_KEY')
@@ -84,9 +58,7 @@ class TraditionalRAGClient:
             
             if not self.api_key:
                 return False
-            
-            self.embedding_function = MistralEmbeddingFunction(self.api_key)
-            
+                        
             self.chroma_db_path.mkdir(parents=True, exist_ok=True)
             self.chroma_client = chromadb.PersistentClient(path=str(self.chroma_db_path))
             

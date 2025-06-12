@@ -1,6 +1,7 @@
-from fastapi import APIRouter, HTTPException, Depends
-from api.models.schemas import RAGRequest, RAGResponse, SystemStatus
+from fastapi import APIRouter, HTTPException, Depends, BackgroundTasks
+from api.models.schemas import RAGRequest, RAGResponse, SystemStatus, AsyncRAGRequest, TaskResult, TaskStatus
 from api.services.rag_service import RAGService
+from api.services.task_manager import task_manager
 import logging
 
 logger = logging.getLogger(__name__)
@@ -10,12 +11,22 @@ router = APIRouter()
 def get_rag_service() -> RAGService:
     return RAGService()
 
+async def process_rag_task(task_id: str, request: RAGRequest, rag_service: RAGService):
+    """Background task to process RAG request"""
+    try:
+        task_manager.update_task_status(task_id, TaskStatus.RUNNING)
+        response = await rag_service.process_query(request)
+        task_manager.complete_task(task_id, response)
+    except Exception as e:
+        logger.error(f"Background task {task_id} failed: {e}")
+        task_manager.fail_task(task_id, str(e))
+
 @router.post("/query", response_model=RAGResponse)
 async def query_rag(
     request: RAGRequest,
     rag_service: RAGService = Depends(get_rag_service)
 ):
-    """Query the RAG system with the specified method"""
+    """Query the RAG system with the specified method (synchronous)"""
     try:
         response = await rag_service.process_query(request)
         
@@ -29,6 +40,31 @@ async def query_rag(
     except Exception as e:
         logger.error(f"Unexpected error in query endpoint: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
+
+@router.post("/query/async")
+async def query_rag_async(
+    request: RAGRequest,
+    background_tasks: BackgroundTasks,
+    rag_service: RAGService = Depends(get_rag_service)
+):
+    """Start an async RAG query and return task ID"""
+    try:
+        task_id = task_manager.create_task()
+        background_tasks.add_task(process_rag_task, task_id, request, rag_service)
+        
+        return {"task_id": task_id, "status": "started"}
+    
+    except Exception as e:
+        logger.error(f"Error starting async query: {e}")
+        raise HTTPException(status_code=500, detail="Error starting async query")
+
+@router.get("/task/{task_id}", response_model=TaskResult)
+async def get_task_status(task_id: str):
+    """Get the status of an async task"""
+    task = task_manager.get_task(task_id)
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return task
 
 @router.get("/status", response_model=SystemStatus)
 async def get_status(rag_service: RAGService = Depends(get_rag_service)):

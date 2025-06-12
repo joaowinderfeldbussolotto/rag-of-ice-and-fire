@@ -1,9 +1,8 @@
 import streamlit as st
-import asyncio
 import requests
-import aiohttp
-from dotenv import load_dotenv
-API_URL = 'http://localhost:8000/api/v1'
+import os
+import time
+API_URL = os.getenv("API_URL", "http://localhost:8000") + "/api/v1"
 
 def render_query_interface():
     """Render the main query interface"""
@@ -53,9 +52,9 @@ def render_query_interface():
             st.warning("Please select at least one search method.")
             return
         
-        # Run all selected searches simultaneously
-        with st.spinner("Running searches..."):
-            results = asyncio.run(_run_selected_searches_concurrently(query, selected))
+        # Run all selected searches with async polling
+        with st.spinner("Starting searches..."):
+            results = _run_selected_searches_async(query, selected)
         
         # Display results
         st.divider()
@@ -101,57 +100,114 @@ def _get_available_methods():
         st.error(f"Failed to connect to API: {str(e)}")
         return []
 
-async def _run_selected_searches_concurrently(query, selected_methods):
-    """Run all selected searches concurrently via HTTP API"""
-    async with aiohttp.ClientSession() as session:
-        tasks = []
-        
-        # Create tasks for selected searches
-        for method in selected_methods:
-            task = _make_api_request(session, query, method)
-            tasks.append(task)
-        
-        # Run all tasks concurrently
-        if tasks:
+def _run_selected_searches_async(query, selected_methods):
+    """Run all selected searches using async API with polling"""
+    # Start all tasks
+    task_ids = {}
+    for method in selected_methods:
+        try:
+            task_id = _start_async_request(query, method)
+            if task_id:
+                task_ids[method] = task_id
+        except Exception as e:
+            task_ids[method] = {"error": f"Failed to start: {str(e)}"}
+    
+    # Poll for results
+    results = {}
+    progress_bar = st.progress(0, text="Processing searches...")
+    
+    completed = 0
+    total = len(task_ids)
+    
+    while completed < total:
+        for method, task_id in task_ids.items():
+            if method in results:
+                continue  # Already completed
+                
+            if isinstance(task_id, dict) and "error" in task_id:
+                results[method] = task_id
+                completed += 1
+                continue
+            
             try:
-                results_list = await asyncio.gather(*tasks, return_exceptions=True)
-                
-                # Map results back to method names and handle exceptions
-                results = {}
-                for i, result in enumerate(results_list):
-                    method = selected_methods[i]
-                    if isinstance(result, Exception):
-                        results[method] = {"error": f"Search failed: {str(result)}"}
-                    else:
-                        results[method] = result
-                
-                return results
+                task_result = _poll_task_status(task_id)
+                if task_result.get("status") == "completed":
+                    results[method] = task_result.get("result", {})
+                    completed += 1
+                elif task_result.get("status") == "failed":
+                    results[method] = {"error": "Task failed"}
+                    completed += 1
             except Exception as e:
-                # Fallback error handling
-                error_result = {"error": f"Concurrent execution failed: {str(e)}"}
-                return {method: error_result for method in selected_methods}
+                results[method] = {"error": f"Polling failed: {str(e)}"}
+                completed += 1
         
-        return {}
+        # Update progress
+        progress = completed / total
+        progress_bar.progress(progress, text=f"Completed {completed}/{total} searches...")
+        
+        if completed < total:
+            time.sleep(1)  # Poll every second
+    
+    progress_bar.empty()
+    return results
 
-async def _make_api_request(session, query, method):
+def _start_async_request(query, method):
+    """Start an async API request and return task ID"""
     try:
         payload = {
             "query": query,
             "method": method
         }
         
-        async with session.post(
+        response = requests.post(
+            f"{API_URL}/query/async",
+            json=payload,
+            headers={"Content-Type": "application/json"},
+            timeout=10
+        )
+        
+        if response.status_code == 200:
+            return response.json().get("task_id")
+        else:
+            return None
+    except Exception:
+        return None
+
+def _poll_task_status(task_id):
+    """Poll for task status"""
+    try:
+        response = requests.get(
+            f"{API_URL}/task/{task_id}",
+            timeout=5
+        )
+        
+        if response.status_code == 200:
+            return response.json()
+        else:
+            return {"status": "failed", "error": f"HTTP {response.status_code}"}
+    except Exception as e:
+        return {"status": "failed", "error": str(e)}
+
+def _make_sync_api_request(query, method):
+    """Make synchronous API request"""
+    try:
+        payload = {
+            "query": query,
+            "method": method
+        }
+        
+        response = requests.post(
             f"{API_URL}/query",
             json=payload,
             headers={"Content-Type": "application/json"},
             timeout=300  # 5 minutes timeout
-        ) as response:
-            if response.status == 200:
-                return await response.json()
-            else:
-                error_text = await response.text()
-                return {"error": f"API error {response.status}: {error_text}"}
-    except asyncio.TimeoutError:
+        )
+        
+        if response.status_code == 200:
+            return response.json()
+        else:
+            return {"error": f"API error {response.status_code}: {response.text}"}
+    except requests.exceptions.Timeout:
         return {"error": "Request timed out"}
     except Exception as e:
         return {"error": f"Request failed: {str(e)}"}

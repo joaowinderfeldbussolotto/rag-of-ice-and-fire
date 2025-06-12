@@ -5,6 +5,7 @@ import logging
 
 from api.api.routes import router
 from api.config import settings
+from api.services.task_manager import task_manager
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -14,6 +15,8 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     """Application lifespan manager"""
     logger.info("Starting up RAG API...")
+    # Initialize task manager
+    app.state.task_manager = task_manager
     yield
     logger.info("Shutting down RAG API...")
 
@@ -49,5 +52,7 @@ if __name__ == "__main__":
         "main:app",
         host=settings.HOST,
         port=settings.PORT,
-        reload=settings.DEBUG
+        reload=settings.DEBUG,
+        timeout_keep_alive=300,
+        timeout_graceful_shutdown=300
     )

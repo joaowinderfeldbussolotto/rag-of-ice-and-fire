@@ -13,9 +13,9 @@ class Settings(BaseSettings):
     # RAG settings
     GRAPHRAG_API_KEY: str = ""
     MISTRAL_API_KEY: str = ""
-    PROJECT_DIRECTORY: str = "../raggraphragtesttest/"
-    CHROMA_DB_PATH: str = "../rag/chromadb"
-    INPUT_DIRECTORY: str = "../graphragtest/input/"
+    PROJECT_DIRECTORY: str = "./graphragtest/"
+    CHROMA_DB_PATH: str = "./rag/chromadb"
+    INPUT_DIRECTORY: str = "./graphragtest/input/"
     
     # Default search parameters
     DEFAULT_COMMUNITY_LEVEL: int = 2
@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     DEFAULT_NUM_RESULTS: int = 5
     
     class Config:
-        env_file = "../.env"
+        env_file = ".env"
         case_sensitive = True
 
 settings = Settings()
