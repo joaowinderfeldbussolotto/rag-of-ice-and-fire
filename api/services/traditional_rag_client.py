@@ -77,7 +77,8 @@ Generate a response that responds to the user's question, summarizing all inform
 If you don't know the answer, just say so. Do not make anything up.
 
 Do not include information where the supporting evidence for it is not provided.
-Do not answer unless its totally specified in the context
+Do not answer unless its totally specified in the context.
+Never answer with generic information, always use the context provided.
 
 Context: {retrieved_docs}
 
