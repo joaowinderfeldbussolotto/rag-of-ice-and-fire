@@ -56,6 +56,4 @@ docsite/
 # Jupyter notebook
 .ipynb_checkpoints/
 
-Dockerfile
-docker-compose.yml
-.dockerignore
+chroma.sqlite3

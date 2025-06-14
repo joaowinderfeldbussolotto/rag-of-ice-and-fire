@@ -1,0 +1,38 @@
+services:
+  api:
+  
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+    env_file:
+      - .env  # Add this line to load environment variables from .env file
+    volumes:
+      - ./api:/app/api
+      - ./graphragtest:/app/graphragtest
+      - ./rag:/app/rag
+    networks:
+      - app-network
+
+  streamlit:
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://api:8000
+    depends_on:
+      - api
+    volumes:
+      # Optional: mount volume for development
+      - ./app:/app
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
