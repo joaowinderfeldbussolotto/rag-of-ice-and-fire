@@ -64,7 +64,7 @@ class TraditionalRAGClient:
             
             self.collection = self.chroma_client.get_collection(name="collection", embedding_function=mistral_embedding_function)
             self.llm = init_chat_model(
-                "mistral-large-latest", 
+                "mistral-medium-latest", 
                 model_provider="mistralai", 
                 temperature=0, 
                 api_key=settings.MISTRAL_API_KEY,
