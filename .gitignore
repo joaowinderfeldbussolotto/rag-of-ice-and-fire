@@ -57,3 +57,5 @@ docsite/
 .ipynb_checkpoints/
 
 chroma.sqlite3
+graphragtest
+rag
