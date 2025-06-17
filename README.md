@@ -10,6 +10,10 @@ This project implements and compares two RAG methodologies:
 
 Both systems are trained on Game of Thrones chapter summaries and provide a web interface for querying the knowledge base.
 
+## 🎥 Demo
+
+https://github.com/user-attachments/assets/99cb8f46-9490-4c58-91a0-0113694d03cf
+
 ## 🏗️ Architecture
 
 ![Architecture Diagram](assets/arch.png)
